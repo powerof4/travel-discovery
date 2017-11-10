@@ -4,13 +4,54 @@
     <!-- This is where you would add the head info from another file.
     <meta charset="utf-8">
     <title></title> -->
+    <!-- link to style sheet doesn't work -->
+    <!-- <link rel="stylesheet" href="../../css/style.css"> -->
   </head>
-  <body>
+  <body style="background-color: gray;">
     <header>
       <% include ../partials/nav %>
     </header>
+    <div class="container" id="main_div">
+      <h1> -- Question -- </h1>
 
-    <p>Paragraph...</p>
+      <!-- blank img to be stored in db -->
+      <img src="" alt="">
+
+      <div class="row">
+        <div class="col s12">
+          <!-- action to be filled in later -->
+          <form class="col s12" action="" method="post">
+            <!-- Option 1: dynamically generate questions -->
+             <!-- variable = data from db  -->
+           <!-- Option 2: just create the same amount of answers for each questions -->
+           <div class="col s12">
+             <input type="radio" name="answer1" value="">
+
+             <label for="answer">Answer 1</label>
+           </div>
+
+           <div class="col s12">
+             <input type="radio" name="answer2" value="">
+             <label for="answer">Answer 2</label>
+           </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- create a form in order to pass in the id of the question for the back button -->
+      <form class="col s6" action="" method="post">
+        <input type="hidden" name="" value="">
+        <button type="button" name="button">Back</button>
+      </form>
+
+      <!-- create a form in order to pass in the id of the question for the next button -->
+      <form class="col s6" action="" method="post">
+        <input type="hidden" name="" value="">
+        <button type="button" name="button">Next</button>
+      </form>
+    </div>
+
+
   </body>
 
   <!-- footer -> This is where you would add the footer info that's located in partials -->
