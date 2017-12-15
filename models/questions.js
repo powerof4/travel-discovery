@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-var Answer = require("answers");
+var Answer = require("./answers");
 
 // QUESTION SCHEMA
 var questionSchema = new mongoose.Schema({
