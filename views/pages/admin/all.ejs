@@ -1,1 +1,6 @@
 <h1>All the stuff :)</h1>
+
+<% questions.forEach(function(question) { %>
+    <h5> <%= question.title %> </h5>
+    <img src="<%= question.image %> " alt="<%= question.title %>" id="img_quest">
+<% }); %>

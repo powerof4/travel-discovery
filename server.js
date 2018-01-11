@@ -30,6 +30,18 @@ app.get('/admin/questions', function(req, res){
   res.render('pages/admin/questions');
 });
 
+// load view to see all the questions
+app.get('/allQuestions', function(req, res){
+    Question.find({}, function(err, data){
+      if(err) throw err; 
+
+      res.render('pages/admin/all', {
+          questions: data
+      }); 
+  });
+
+});
+
 // save the data from the form
 app.post('/saveQuestion', function(req, res){
   var newQuest = new Question({
@@ -38,13 +50,19 @@ app.post('/saveQuestion', function(req, res){
   });
 
   // save the new question then render the all page, catch any errors and respond with error
-  newQuest.save().then(data => {
-      console.log(data);
-      res.render('pages/admin/all');
-  }).catch(err => {
-      res.status(400).send('Unable to save the question to the database');
-    }
-  );
+    newQuest.save(function (err){
+        if(err) throw err; 
+
+        // get all the questions and display them on the all page
+        Question.find({}, function(err, data){
+            if(err) throw err; 
+
+            console.log(data); 
+            res.render('pages/admin/all', {
+                questions: data
+            }); 
+        });
+    });
 });
 
 app.listen(port, function(){
