@@ -5,7 +5,12 @@ var mongoose = require("mongoose");
 var port = 3000;
 
 
-mongoose.connect("mongodb://localhost/traveldisc");
+// mongoose.connect("mongodb://localhost/traveldisc");
+var mongoDB = 'mongodb://localhost/traveldisc';
+mongoose.connect(mongoDB, {
+  useMongoClient: true
+});
+
 // set the view engine to ejs
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -17,6 +22,10 @@ var Answer = require("./models/answers");
 
 app.get('/', function(req, res){
   res.render('pages/index');
+});
+
+app.get('/questions', function(req, res){
+  res.render('pages/questions');
 });
 
 app.listen(port, function(){
