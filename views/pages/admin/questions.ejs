@@ -1,0 +1,23 @@
+<% include ../../partials/head %>
+
+<h3>Use the form to Add a Question to the Database</h3>
+
+<div class="row">
+  <form class="col s12" action="/saveQuestion" method="post">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="quest_title" name="quest_title" class="materialize-textarea"></textarea>  
+        <label for="title">Question: </label>
+      </div>  
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="input-field col s12">
+      <input id="img_file" type="text" name="img_file">
+      <label for="image">Paste the Link for the Image: </label>
+    </div>
+  </div>
+
+  <button class="waves-effect waves-light btn right">Add Question</button>
+</form>

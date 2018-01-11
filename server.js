@@ -5,7 +5,12 @@ var mongoose = require("mongoose");
 var port = 3000;
 
 
-mongoose.connect("mongodb://localhost/traveldisc");
+// mongoose.connect("mongodb://localhost/traveldisc");
+var mongoDB = 'mongodb://localhost/traveldisc';
+mongoose.connect(mongoDB, {
+  useMongoClient: true
+});
+
 // set the view engine to ejs
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -15,8 +20,49 @@ var User = require("./models/users");
 var Question = require("./models/questions");
 var Answer = require("./models/answers");
 
+// load the index page
 app.get('/', function(req, res){
   res.render('pages/index');
+});
+
+// load view - questions for a form to add questions
+app.get('/admin/questions', function(req, res){
+  res.render('pages/admin/questions');
+});
+
+// load view to see all the questions
+app.get('/allQuestions', function(req, res){
+    Question.find({}, function(err, data){
+      if(err) throw err; 
+
+      res.render('pages/admin/all', {
+          questions: data
+      }); 
+  });
+
+});
+
+// save the data from the form
+app.post('/saveQuestion', function(req, res){
+  var newQuest = new Question({
+      title: req.body.quest_title,
+      image: req.body.img_file
+  });
+
+  // save the new question then render the all page, catch any errors and respond with error
+    newQuest.save(function (err){
+        if(err) throw err; 
+
+        // get all the questions and display them on the all page
+        Question.find({}, function(err, data){
+            if(err) throw err; 
+
+            console.log(data); 
+            res.render('pages/admin/all', {
+                questions: data
+            }); 
+        });
+    });
 });
 
 app.listen(port, function(){

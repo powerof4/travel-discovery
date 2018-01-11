@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
-// / ANSWER SCHEMA 
+// / ANSWER SCHEMA
 var answerSchema = new mongoose.Schema({
-	response: String,
+	response: [String],
 });
 
 var Answer = mongoose.model("Answer", answerSchema);
