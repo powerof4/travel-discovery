@@ -1,0 +1,29 @@
+<% include ../../partials/head %>
+
+<h3>Use the form to Add a Question to the Database</h3>
+
+<!-- add a form tag to wrap around both of these divs and the button 
+        which should have a method post. 
+        Also create a new route in server.js file -->
+<div class="row">
+  <form class="col s12" action="/saveQuestion" method="post">
+    <div class="row">
+      <div class="input-field col s12">
+        <textarea id="quest_title" name="quest_title" class="materialize-textarea"></textarea>  
+        <label for="title">Question</label>
+      </div>  
+    </div>
+  </div>
+
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>Upload Image: </span>
+      <input type="file">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text" name="img_file">
+    </div>
+  </div>
+
+  <button class="waves-effect waves-light btn right">Add Question</button>
+</form>
