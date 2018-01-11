@@ -4,7 +4,8 @@
     <h5> <%= question.title %> </h5>
     <img src="<%= question.image %> " alt="<%= question.title %>" id="img_quest">
     <br>
-    <a href="<%= question._id %> ">Add Answers to this Question</a>
-
+    <form action="answers/<%= question._id %>" method="get">
+        <a href="answers/<%= question._id %>">Add Answers to this Question</a>
+    </form>
     <hr>
 <% }); %>

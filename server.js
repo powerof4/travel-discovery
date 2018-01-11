@@ -65,6 +65,11 @@ app.post('/saveQuestion', function(req, res){
     });
 });
 
+// get the page based on the id of the question
+app.get('/answers/:id', function(req, res){
+    res.render('pages/admin/addAnswers');
+});
+
 app.listen(port, function(){
   console.log("listening on port: " + port);
 })
