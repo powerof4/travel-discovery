@@ -62,14 +62,14 @@ app.post('/saveQuestion', function(req, res){
             console.log(data); 
         });
         // get all the questions and display them on the all page
-        // Question.find({}, function(err, data){
-        //     if(err) throw err; 
+        Question.find({}, function(err, data){
+            if(err) throw err; 
 
-        //     console.log(data); 
-        //     res.render('pages/admin/all', {
-        //         questions: data
-        //     }); 
-        // });
+            console.log(data); 
+            res.render('pages/admin/all', {
+                questions: data
+            }); 
+        });
     });
 });
 
