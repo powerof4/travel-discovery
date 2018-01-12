@@ -1,4 +1,6 @@
 var mongoose = require("mongoose");
+var Question = require("./questions");
+
 // / ANSWER SCHEMA
 var answerSchema = new mongoose.Schema({
 	response: [String],
