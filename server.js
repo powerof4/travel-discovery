@@ -53,21 +53,64 @@ app.post('/saveQuestion', function(req, res){
     newQuest.save(function (err){
         if(err) throw err; 
 
-        // get all the questions and display them on the all page
-        Question.find({}, function(err, data){
+        // populate the answers
+        Question.findOne({ title: req.body.quest_title, image: req.body.img_file }).
+          populate('_question').
+          exec(function(err, data){
             if(err) throw err; 
 
             console.log(data); 
-            res.render('pages/admin/all', {
-                questions: data
-            }); 
         });
+        // get all the questions and display them on the all page
+        // Question.find({}, function(err, data){
+        //     if(err) throw err; 
+
+        //     console.log(data); 
+        //     res.render('pages/admin/all', {
+        //         questions: data
+        //     }); 
+        // });
     });
 });
 
 // get the page based on the id of the question
 app.get('/answers/:id', function(req, res){
-    res.render('pages/admin/addAnswers');
+    Question.findOne({ _id: req.params.id}, function (err, data){
+        if(err) throw err; 
+
+        res.render('pages/admin/addAnswers', { 
+            question: data
+        });
+      
+    });
+});
+
+// save the answers
+app.post('/addAnswer', function(req, res){
+    console.log(req.body);
+
+    var newAnswer = new Answer({
+      response: [req.body.response_text],
+      _question: req.body.question_id
+  });
+
+  // save the new answer 
+  newAnswer.save(function (err){
+        if(err) throw err; 
+
+        // find the question based on the id and populate _question
+        Question.findOne({ _id: req.body.question_id}).
+          populate('_question').
+          exec(function(err, data){
+            if(err) throw err; 
+
+            // make sure to get a list of the questions
+
+            // res.render('pages/admin/all', {
+            //     questions: data
+            // }); 
+        });
+    });
 });
 
 app.listen(port, function(){
