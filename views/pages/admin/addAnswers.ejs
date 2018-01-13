@@ -2,68 +2,53 @@
 
 <h1>Answers for:  <%= question.title %></h1>
 
-<form action="/addAnswer" method="post" id="form_add_ans">
+<h3>Use this form if answer is yes/no: </h3>
+<form action="/addYNAnswer" method="post" id="form_add_ans">
     <input type="hidden" name="question_id" value="<%= question._id %>">
     <div class="input-field col s12">
         <input id="response_text" type="text" name="response_text">
         <label for="response">Answer to the question: </label>
     </div>
 
-    <!-- <button class="waves-effect waves-light btn right">Add Answer</button> -->
-<!-- </form> -->
-
-<br>
-<hr>
-
-<!-- <form action="/addAnswer" method="post" id="form_add_ans"> -->
+    <br><hr>
     <div class="input-field col s12">
         <input id="response_text" type="text" name="response_text">
         <label for="response">Answer to the question: </label>
     </div>
 
-    <!-- <button class="waves-effect waves-light btn right">Add Answer</button> -->
-<!-- </form> -->
-
-<br>
-<hr>
-
-<!-- <form action="/addAnswer" method="post" id="form_add_ans"> -->
-    <div class="input-field col s12">
-        <input id="response_text" type="text" name="response_text">
-        <label for="response">Answer to the question: </label>
-    </div>
-
-    <!-- <button class="waves-effect waves-light btn right">Add Answer</button> -->
-<!-- </form> -->
-
-<br>
-<hr>
-
-<!-- <form action="/addAnswer" method="post" id="form_add_ans"> -->
-    <div class="input-field col s12">
-        <input id="response_text" type="text" name="response_text">
-        <label for="response">Answer to the question: </label>
-    </div>
-
-    <!-- <button class="waves-effect waves-light btn right">Add Answer</button> -->
-
-
-    <button class="waves-effect waves-light btn right">Add Answer(s)</button>
+    <button class="waves-effect waves-light btn right">Add Answers</button>
 </form>
-<!-- <button class="waves-effect waves-light btn left" id="add_another_quest">
-    Click to Add Another Answer
-</button>
 
-<div id="add_new_answer"></div>
+<h3>Use this form if question has multiple answers: </h3>
+<form action="/addMultipleAnswer" method="post" id="form_add_ans">
+    <div class="input-field col s12">
+        <input id="response_text" type="text" name="response_text">
+        <label for="response">Answer to the question: </label>
+    </div>
 
-<script>
-    $('#add_another_quest').on('click', function(){
-        function new_answer(){
+    <br><hr>
 
-        }
-        $('#add_new_answer').append('');
-    });
-</script> -->
+    <div class="input-field col s12">
+        <input id="response_text" type="text" name="response_text">
+        <label for="response">Answer to the question: </label>
+    </div>
+
+    <br><hr>
+
+    <div class="input-field col s12">
+        <input id="response_text" type="text" name="response_text">
+        <label for="response">Answer to the question: </label>
+    </div>
+
+    <br><hr>
+
+    <div class="input-field col s12">
+        <input id="response_text" type="text" name="response_text">
+        <label for="response">Answer to the question: </label>
+    </div>
+
+    <button class="waves-effect waves-light btn right">Add Answers</button>
+</form>
 
 
 

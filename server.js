@@ -54,18 +54,19 @@ app.post('/saveQuestion', function(req, res){
         if(err) throw err; 
 
         // populate the answers
-        Question.findOne({ title: req.body.quest_title, image: req.body.img_file }).
-          populate('_question').
-          exec(function(err, data){
-            if(err) throw err; 
+        // Question.findOne({ title: req.body.quest_title, image: req.body.img_file }).
+        //   populate('_question').
+        //   exec(function(err, data){
+        //     if(err) throw err; 
 
-            console.log(data); 
-        });
+        //     console.log(data); 
+        // });
+
         // get all the questions and display them on the all page
         Question.find({}, function(err, data){
             if(err) throw err; 
 
-            console.log(data); 
+            // console.log(data); 
             res.render('pages/admin/all', {
                 questions: data
             }); 
@@ -85,9 +86,9 @@ app.get('/answers/:id', function(req, res){
     });
 });
 
-// save the answers
-app.post('/addAnswer', function(req, res){
-    console.log(req.body);
+// save the yes/no answers form
+app.post('/addYNAnswer', function(req, res){
+    // console.log(req.body);
 
     var newAnswer = new Answer({
       response: [req.body.response_text],
@@ -98,17 +99,27 @@ app.post('/addAnswer', function(req, res){
   newAnswer.save(function (err){
         if(err) throw err; 
 
-        // find the question based on the id and populate _question
-        Question.findOne({ _id: req.body.question_id}).
-          populate('_question').
-          exec(function(err, data){
+        // populate the _answer field within question table
+        // .
+        //   populate('_answer', 'response').
+        //   exec(function(err, data)
+        Question.findOne({ _id: req.body.question_id } , function(err, quest){
             if(err) throw err; 
 
-            // make sure to get a list of the questions
+            console.log("Found the matching question to the ans: " + quest); 
+            quest.populate('_answer', function(err){
+                if(err) throw err; 
 
-            // res.render('pages/admin/all', {
-            //     questions: data
-            // }); 
+            // get a list of all the questions and answers
+            Question.find({}, function(err, data){
+                if(err) throw err; 
+
+                console.log("All questions and answers: " + data); 
+                res.render('pages/admin/all', { 
+                    questions: data
+                });
+            }); 
+            });
         });
     });
 });
