@@ -1,0 +1,20 @@
+<% include ../../partials/head %>
+
+<h1>All the Questions and Answers </h1>
+
+<% for(var item in questions) { %>
+
+    <h3>Questions: </h3>
+    <h6><%= questions[item].title %></h6>
+
+    <img style="height: 150px; width: 150px;" src="<%= questions[item].image %>" alt="<%= questions[item].title %>">
+    
+    <h3>Answers: </h3>
+    
+    <%for(var idx = 0; idx < questions[item]._answer.length; idx++) { %>
+
+        <h5><%= questions[item]._answer[idx].response  %></h5>
+
+    <% } %>
+<% } %>
+

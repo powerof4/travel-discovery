@@ -42,6 +42,24 @@ app.get('/allQuestions', function(req, res){
 
 });
 
+app.get('/every', function(req, res){
+    Question.find({}).populate('_answer').exec(function(err, data){
+      if(err) throw err; 
+
+      console.log("All Quest and answers: " + data);
+
+      for (var item in data) {
+        console.log("Answers for the question: " + data[item]._answer[0].response);
+        
+      }
+
+      res.render('pages/admin/allQuestAns', {
+          questions: data
+      }); 
+  });
+
+});
+
 // save the data from the form
 app.post('/saveQuestion', function(req, res){
   var newQuest = new Question({
@@ -52,15 +70,6 @@ app.post('/saveQuestion', function(req, res){
   // save the new question then render the all page, catch any errors and respond with error
     newQuest.save(function (err){
         if(err) throw err; 
-
-        // populate the answers
-        // Question.findOne({ title: req.body.quest_title, image: req.body.img_file }).
-        //   populate('_question').
-        //   exec(function(err, data){
-        //     if(err) throw err; 
-
-        //     console.log(data); 
-        // });
 
         // get all the questions and display them on the all page
         Question.find({}, function(err, data){
@@ -88,41 +97,42 @@ app.get('/answers/:id', function(req, res){
 
 // save the yes/no answers form
 app.post('/addYNAnswer', function(req, res){
-    // console.log(req.body);
-
+    
     var newAnswer = new Answer({
-      response: [req.body.response_text],
-      _question: req.body.question_id
-  });
-
-  // save the new answer 
-  newAnswer.save(function (err){
+        response: [req.body.response_text1, req.body.response_text2],
+        _question: req.body.question_id
+    });
+    newAnswer.save(function(err){
         if(err) throw err; 
 
-        // populate the _answer field within question table
-        // .
-        //   populate('_answer', 'response').
-        //   exec(function(err, data)
-        Question.findOne({ _id: req.body.question_id } , function(err, quest){
-            if(err) throw err; 
+        Question.findOne({ _id: req.body.question_id }, function(err, questData){
+            if(err) throw err;
 
-            console.log("Found the matching question to the ans: " + quest); 
-            quest.populate('_answer', function(err){
-                if(err) throw err; 
+            // set the _answer of this question to the id 
+            questData._answer.push(newAnswer._id); 
+            console.log("Quest Data: " + questData); 
 
-            // get a list of all the questions and answers
-            Question.find({}, function(err, data){
-                if(err) throw err; 
+            questData.save(function(err){
+                console.log('New Answer added...' + questData); 
 
-                console.log("All questions and answers: " + data); 
-                res.render('pages/admin/all', { 
-                    questions: data
+                // populate theQuestion with the answers to the new question based on the answer model
+                Question.findOne({ _id: questData._id }).populate('_answer')
+                        .exec(function(err, question){
+                    // now we have the populated responses, redirect back to the /allQuestions page
+                    // questions[idx]._answer.response
+                    console.log('Questions after populate ' + question._answer.response);
+                    res.render('pages/admin/all', { 
+                        questions: question
+                    });
                 });
             }); 
-            });
-        });
+            
+        });  
     });
+
 });
+
+// this is where the other form needs to be created at
 
 app.listen(port, function(){
   console.log("listening on port: " + port);
