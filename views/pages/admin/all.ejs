@@ -1,6 +1,16 @@
+<% include ../../partials/head %>
+
 <h1>All the stuff :)</h1>
 
-<% questions.forEach(function(question) { %>
-    <h5> <%= question.title %> </h5>
-    <img src="<%= question.image %> " alt="<%= question.title %>" id="img_quest">
-<% }); %>
+<% for(var idx = 0; idx < questions.length; idx++) { %>
+    <h3> <%= questions[idx].title %> </h3>
+    <img src="<%= questions[idx].image %> " alt="<%= questions[idx].title %>" id="img_quest">
+
+    <h3>Answers: </h3>
+
+    <br>
+    <form action="answers/<%= questions[idx]._id %>" method="get">
+        <a href="answers/<%= questions[idx]._id %>">Add Answers to this Question</a>
+    </form>
+    <hr>
+<% } %>
