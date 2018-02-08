@@ -48,10 +48,10 @@ app.get('/every', function(req, res){
 
       console.log("All Quest and answers: " + data);
 
-      for (var item in data) {
-        console.log("Answers for the question: " + data[item]._answer[0].response);
+    //   for (var item in data) {
+    //     console.log("Answers for the question: " + data[item]._answer[0].response);
         
-      }
+    //   }
 
       res.render('pages/admin/allQuestAns', {
           questions: data
@@ -75,10 +75,8 @@ app.post('/saveQuestion', function(req, res){
         Question.find({}, function(err, data){
             if(err) throw err; 
 
-            // console.log(data); 
-            res.render('pages/admin/all', {
-                questions: data
-            }); 
+            // redirect to allQuestions page
+            res.redirect('/allQuestions');
         });
     });
 });
@@ -120,10 +118,9 @@ app.post('/addYNAnswer', function(req, res){
                         .exec(function(err, question){
                     // now we have the populated responses, redirect back to the /allQuestions page
                     // questions[idx]._answer.response
-                    console.log('Questions after populate ' + question._answer.response);
-                    res.render('pages/admin/all', { 
-                        questions: question
-                    });
+
+                    // redirect to /every to show all questions and answers
+                    res.redirect('/every');
                 });
             }); 
             
