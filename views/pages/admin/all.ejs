@@ -8,13 +8,13 @@
 
     <h3>Answers: </h3>
     <%for(var ans = 0; ans < questions[idx]._answer.length; ans++) { %>
-
         <p><%= questions[idx]._answer[ans].response  %></p>
-
     <% } %>
     <br>
     <form action="answers/<%= questions[idx]._id %>" method="get">
-        <a href="answers/<%= questions[idx]._id %>">Add Answers to this Question</a>
+        <% if(!questions[idx]._answer) { %>
+            <a href="answers/<%= questions[idx]._id %>">Add Answers to this Question</a>
+        <% } %>
     </form>
     <hr>
 <% } %>
