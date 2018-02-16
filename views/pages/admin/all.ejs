@@ -13,7 +13,9 @@
     <% } else { %>
         <%for(var ans = 0; ans < questions[idx]._answer.length; ans++) { %>
             <h3>Answers: </h3>
-            <p><%= questions[idx]._answer[ans].response  %></p>
+            <% for(var ansIdx = 0; ansIdx < questions[idx]._answer[ans].response.length; ansIdx++) {%>
+                <p><%= questions[idx]._answer[ans].response[ansIdx] %></p>
+            <% } %>
         <% } %>
     <% } %>
     <br>
