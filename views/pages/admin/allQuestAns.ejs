@@ -14,10 +14,10 @@
     
     <h3>Answers: </h3>
     
-    <%for(var idx = 0; idx < questions[item]._answer.length; idx++) { %>
-
-        <h5><%= questions[item]._answer[idx].response  %></h5>
-
+    <%for(var idx = 0; idx < questions[item]._answer.length; idx++) { %> 
+        <% for(var ansIdx = 0; ansIdx < questions[item]._answer[idx].response.length; ansIdx++) {%>
+            <p><%= questions[item]._answer[idx].response[ansIdx] %></p>
+        <% } %>
     <% } %>
 <% } %>
 

@@ -3,7 +3,7 @@ var Question = require("./questions");
 
 // / ANSWER SCHEMA
 var answerSchema = new mongoose.Schema({
-	response: [String],
+	response: [],
 	_question: {type: mongoose.Schema.Types.ObjectId, ref: 'Question'} // adding the id of the question so it can be referenced
 
 });
