@@ -37,8 +37,8 @@ app.get('/admin/questions', function(req, res){
 
 // load view to see all the questions
 app.get('/allQuestions', function(req, res){
-  Question.find({}, function(err, data){
-    if(err) throw err; 
+    Question.find({}).populate('_answer').exec(function(err, data){
+      if(err) throw err; 
 
     res.render('pages/admin/all', {
       questions: data
@@ -145,6 +145,40 @@ app.post('/users', function(req, res){
   console.log(newUser);
 });
 
+app.post('/addMultipleAnswer', function(req, res){
+    
+    var newAnswer = new Answer({
+        response: [req.body.response_text],
+        _question: req.body.question_id
+    });
+  
+    newAnswer.save(function(err){
+        if(err) throw err; 
+
+        Question.findOne({ _id: req.body.question_id }, function(err, questData){
+            if(err) throw err;
+
+            // set the _answer of this question to the id 
+            questData._answer.push(newAnswer._id); 
+            console.log("Quest Data: " + questData); 
+
+            questData.save(function(err){
+                console.log('New Answer added...' + questData); 
+
+                // populate theQuestion with the answers to the new question based on the answer model
+                Question.findOne({ _id: questData._id }).populate('_answer')
+                        .exec(function(err, question){
+                    // now we have the populated responses, redirect back to the /every page
+
+                    // redirect to /every to show all questions and answers
+                    res.redirect('/every');
+                });
+            }); 
+            
+        });  
+    });
+
+});
 
 app.listen(port, function(){
   console.log("listening on port: " + port);

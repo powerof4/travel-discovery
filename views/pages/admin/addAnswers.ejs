@@ -21,29 +21,30 @@
 
 <h3>Use this form if question has multiple answers: </h3>
 <form action="/addMultipleAnswer" method="post" id="form_add_ans">
+    <input type="hidden" name="question_id" value="<%= question._id %>">
     <div class="input-field col s12">
-        <input id="response_text" type="text" name="response_text">
+        <input id="response_text" type="text" name="response_text1">
         <label for="response">Answer to the question: </label>
     </div>
 
     <br><hr>
 
     <div class="input-field col s12">
-        <input id="response_text" type="text" name="response_text">
+        <input id="response_text" type="text" name="response_text2">
         <label for="response">Answer to the question: </label>
     </div>
 
     <br><hr>
 
     <div class="input-field col s12">
-        <input id="response_text" type="text" name="response_text">
+        <input id="response_text" type="text" name="response_text3">
         <label for="response">Answer to the question: </label>
     </div>
 
     <br><hr>
 
     <div class="input-field col s12">
-        <input id="response_text" type="text" name="response_text">
+        <input id="response_text" type="text" name="response_text4">
         <label for="response">Answer to the question: </label>
     </div>
 
