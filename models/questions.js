@@ -5,7 +5,10 @@ var Answer = require("./answers");
 var questionSchema = new mongoose.Schema({
 	title: String,
 	image: String,
-	_answer: [{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}] // changed to an array of answer ids since there will be multiple
+	_answer: [
+		 // changed to an array of answer ids since there will be multiple
+		{type: mongoose.Schema.Types.ObjectId, ref: 'Answer'}		
+	]
 });
 
 var Question = mongoose.model("Question", questionSchema);
