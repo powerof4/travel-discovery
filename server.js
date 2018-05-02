@@ -142,7 +142,10 @@ app.post('/users', function(req, res){
     lastName: req.body.last_name,
     email: req.body.email
   });
-  console.log(newUser);
+  newUser.save(function(err){
+      if(err) throw err;
+  });
+  res.redirect('/');
 });
 
 app.post('/addMultipleAnswer', function(req, res){
