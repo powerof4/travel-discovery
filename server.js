@@ -134,15 +134,19 @@ app.post('/addYNAnswer', function(req, res){
 
 });
 
-// this is where the other form needs to be created at
-// form actions
+// save user and redirect home
 app.post('/users', function(req, res){
   var newUser = new User({
     firstName: req.body.first_name,
     lastName: req.body.last_name,
     email: req.body.email
   });
-  console.log(newUser);
+
+  newUser.save(function(err){
+      if(err) throw err;
+  });
+
+  res.redirect('/');
 });
 
 app.post('/addMultipleAnswer', function(req, res){
